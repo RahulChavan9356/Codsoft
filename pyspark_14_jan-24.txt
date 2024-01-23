@@ -1,0 +1,50 @@
+pyspark:
+
+orderby() and sort()
+
+from pyspark.sql.function import sum,avg,max
+df.groupBy("department").agg(
+sum("bonus").alias("sum_sal"),
+avg("bonus").alias("avg_sal"),
+avg("bonus").alias("max_bonus"))
+
+union()
+
+dataframe1.union(dataframe2)
+
+partitionBy()
+repartition()
+maxRecordsperfile
+data skew-control 
+
+folder
+10gb
+100-files
+001--10
+002
+003
+...
+500
+
+
+001
+002
+maxRecordsperFile=10
+
+df.write.option("header",True).option("maxRecordsperFile=",10).partitionBY("state")
+.mode("overwrite").csv("c:/user/abc/zipcode.csv")
+The above example creates multiple part files for each state and each part
+ files contains just 10 records.
+
+how is partitionBY() different from groupBy() in puspark
+can i use multiple columns with partitionBY()
+How does partition affects query performance
+
+
+
+
+
+
+
+
+

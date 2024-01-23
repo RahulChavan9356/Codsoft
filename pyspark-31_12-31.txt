@@ -1,0 +1,167 @@
+RDD
+parallelize[]
+
+create an empty RDD
+
+from pyspark.sql inport SparkSession
+sparkSparkSession.builder.appName("sparkcousrse").getOrCreate()
+#empty RDD
+emptyRDD =spark.sparkContext.emptyRDD()
+print(emptyRDD)
+
+=================================
+
+emptyRDD =spark.sparkContext.parallelize([])
+
+=============================
+
+create empty Dataframe with Schema(Struct type)
+
+from pyspark.sql.types import StructType,StructField,StringType
+
+from pyspark.sql.types import StructType,StructField,StringType
+
+schema =StructType([StructField
+('firstname',StringType(),True),
+StructField('middlename',StringType(),True),
+StructField('lastname',StringType(),True)])
+
+====
+
+convert pyspark RDD to dataframe
+
+use toDF() function
+pyspark provides toDF() function in RDD which can be used to convert 
+RDD into dataframe
+
+df=rdd.toDF()
+
+StructType-defines the structure of the dataframe:
+
+pyspark provides 
+from pyspark.sql.types import structTypes class
+to deefine the structure of the dataframe
+StructType is a collection or list of StructField object.
+
+printSchema(): it is used to show the schema
+
+StructField-defines the metadata of the dataframe column
+
+defining Nested structtype object:
+while working on Dataframe we often need to work with nested struct column and this can be defined using StructType
+
+
+structuredata=[
+(("james","smith"),"3456","M",30000),
+(("micheal","rose"),"4022","M",35000)
+]
+
+from pyspark.sql.types import StructType, StructField, StringType
+
+# Define the schema
+structure_schema = StructType([
+    StructField('Fname', StructType([
+        StructField('firstname', StringType(), True)
+    ]))
+])
+
+# Example usage:
+# You can use this schema when defining the structure of your DataFrame
+# For instance, when reading a CSV file with a specific structure
+# df = spark.read.csv("your_file.csv", schema=structure_schema)
+
+
+
+convert pyspark dataframe to pandas?
+
+topandas() function to convert from pyspark to pandas.
+
+pandas run operations on single node whearas pyspark runs on multiple machines.If you are working in BIgdata,
+machine leareing application where you are dealing with a large dataset ,we use pyspark
+since it will be very fast compared to pandas.
+
+after processing data in pyspark we can convert it back to pandas dataframe
+
+alias()==it is used for renaming the columns
+
+
+asc() and desc() -sort the dataframe columns by ascending and descening order
+
+df.select(df.fname,df.id.cast("int")).printSchema()
+
+cast()==used to convert datatype
+
+
+between:
+df.filter(df.id.between(100,175)).show()
+
+contains:
+df.filter(df.fname.contains("james")).show()
+
+df.filter(df.fname.startswith("E")).show()
+
+df.filter(df.fname.startswith("E")).show()
+
+df.filter(df.fname.endswith("e")).show()
+
+df.filter(df.fname.isNull()).show()
+
+df.filter(df.fname.isNotNull()).show()
+
+df.select(df.fname.substr(1,2).alias("substring")).show()
+
+
+when() and otherwise()--its is similar to ur sql case when.
+it executes sequence of expression util it matches the condition and returen values when matched
+
+
+df.select(df.fname,df.lname, when(df.gender=="M","Male")\
+.when(df.gender=="F","FEMALE")\
+.otherwise(df.gender).alias("new_gender")).show()
+
+collect():
+It is an action operation that is used to retrieve all the elements.
+we should use collect() on smaller dataset usually after filter(),group().
+Retreving larger dataset will result in outofmemory exection
+
+withcolumn:
+1)change the datatype using pyspark withcolumn()
+2)update the value of the existing column:
+3)add a new column
+4)
+add a new column and add a constant value to the new column
+from pyspark.sql.types import StructType, StructField, StringType, ArrayType
+
+# Define the schema
+schema = StructType([
+    StructField('name', StructType([
+        StructField('firstname', StringType(), True),
+        StructField('middlename', StringType(), True),
+        StructField('lastname', StringType(), True)
+    ])),
+    StructField('languages', ArrayType(StringType()), True),
+    StructField('state', StringType(), True),
+    StructField('gender', StringType(), True)
+])
+
+
+filter()
+
+filter based on list values:
+
+if you have a list of elements and you wanted to filter that is not in the list or in the list,use
+isin() 
+
+
+filter based on starts with, ends with, contains
+
+
+Disticny to drop duplicate rows:
+
+
+
+
+
+
+
+
